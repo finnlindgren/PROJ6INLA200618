@@ -17,7 +17,7 @@ You can install the package from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("remotes")
-remotes::install_github("finnlindgren/PROJ6INLA200618")
+remotes::install_github("finnlindgren/PROJ6INLA200618", ref = "stable")
 ```
 
 ## Example
