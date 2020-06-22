@@ -32,10 +32,17 @@ remotes::install_github("finnlindgren/PROJ6INLA200618", ref = "stable")
 ```
 ## Example
 
-Use the package like this:
+To use this bug workaround package, first load `INLA`, and then load
+`PROJ6INLA200618` (the opposite order will not work):
 
 ```{r example}
 library(INLA)
 library(PROJ6INLA200618)
+
+crs <- sp::CRS("+proj=geocent")
+cat(sp::wkt(crs))
+cat(sp::wkt(inla.crs_set_lengthunit(crs, "kilometre")))
 ```
-This will display a note about which functions are overridden.
+This will display a note about which functions are overridden, and a warning if
+the INLA version isn't 20.06.18. In that case, you probably don't need this
+workaround package.

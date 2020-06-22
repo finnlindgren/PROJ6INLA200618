@@ -2,16 +2,10 @@
 % Please edit documentation in R/code.R
 \name{inla.wkt_set_lengthunit}
 \alias{inla.wkt_set_lengthunit}
-\alias{inla.crs_get_wkt}
-\alias{inla.crs_get_lengthunit}
 \alias{inla.crs_set_lengthunit}
 \title{Handling CRS/WKT}
 \usage{
 inla.wkt_set_lengthunit(wkt, unit, params = NULL)
-
-inla.crs_get_wkt(crs)
-
-inla.crs_get_lengthunit(crs)
 
 inla.crs_set_lengthunit(crs, unit, params = NULL)
 }
@@ -19,13 +13,6 @@ inla.crs_set_lengthunit(crs, unit, params = NULL)
 For \code{inla.wkt_set_lengthunit}, a
 WKT2 string with altered length units.
 Note that the length unit for the ellipsoid radius is unchanged.
-
-For \code{inla.crs_get_wkt}, WKT2 string.
-
-For \code{inla.crs_get_lengthunit}, a
-list of length units used in the wkt string, excluding the ellipsoid radius
-unit. (For legacy PROJ4 code, the raw units from the proj4string are
-returned, if present.)
 
 For \code{inla.crs_set_lengthunit}, a \code{sp::CRS} object with
 altered length units.

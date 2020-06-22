@@ -22,7 +22,8 @@ remotes::install_github("finnlindgren/PROJ6INLA200618", ref = "stable")
 
 ## Example
 
-Use the package like this:
+To use this bug workaround package, first load `INLA`, and then load
+`PROJ6INLA200618` (the opposite order will not work):
 
 ``` r
 library(INLA)
@@ -38,8 +39,59 @@ library(PROJ6INLA200618)
 #> Attaching package: 'PROJ6INLA200618'
 #> The following objects are masked from 'package:INLA':
 #> 
-#>     inla.crs_get_lengthunit, inla.crs_get_wkt, inla.crs_set_lengthunit,
-#>     inla.wkt_set_lengthunit
+#>     inla.crs_set_lengthunit, inla.wkt_set_lengthunit
+
+crs <- sp::CRS("+proj=geocent")
+cat(sp::wkt(crs))
+#> GEODCRS["unknown",
+#>     DATUM["World Geodetic System 1984",
+#>         ELLIPSOID["WGS 84",6378137,298.257223563,
+#>             LENGTHUNIT["metre",1]],
+#>         ID["EPSG",6326]],
+#>     PRIMEM["Greenwich",0,
+#>         ANGLEUNIT["degree",0.0174532925199433],
+#>         ID["EPSG",8901]],
+#>     CS[Cartesian,3],
+#>         AXIS["(X)",geocentricX,
+#>             ORDER[1],
+#>             LENGTHUNIT["metre",1,
+#>                 ID["EPSG",9001]]],
+#>         AXIS["(Y)",geocentricY,
+#>             ORDER[2],
+#>             LENGTHUNIT["metre",1,
+#>                 ID["EPSG",9001]]],
+#>         AXIS["(Z)",geocentricZ,
+#>             ORDER[3],
+#>             LENGTHUNIT["metre",1,
+#>                 ID["EPSG",9001]]]]
+cat(sp::wkt(inla.crs_set_lengthunit(crs, "kilometre")))
+#> Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO"): Discarded
+#> ellps WGS 84 in CRS definition: NA
+#> Warning in showSRID(SRS_string, format = "PROJ", multiline = "NO"): Discarded
+#> datum WGS_1984 in CRS definition
+#> GEODCRS["unknown",
+#>     DATUM["World Geodetic System 1984",
+#>         ELLIPSOID["WGS 84",6378137,298.257223563,
+#>             LENGTHUNIT["metre",1]],
+#>         ID["EPSG",6326]],
+#>     PRIMEM["Greenwich",0,
+#>         ANGLEUNIT["degree",0.0174532925199433],
+#>         ID["EPSG",8901]],
+#>     CS[Cartesian,3],
+#>         AXIS["(X)",geocentricX,
+#>             ORDER[1],
+#>             LENGTHUNIT["kilometre",1000,
+#>                 ID["EPSG",9036]]],
+#>         AXIS["(Y)",geocentricY,
+#>             ORDER[2],
+#>             LENGTHUNIT["kilometre",1000,
+#>                 ID["EPSG",9036]]],
+#>         AXIS["(Z)",geocentricZ,
+#>             ORDER[3],
+#>             LENGTHUNIT["kilometre",1000,
+#>                 ID["EPSG",9036]]]]
 ```
 
-This will display a note about which functions are overridden.
+This will display a note about which functions are overridden, and a
+warning if the INLA version isn’t 20.06.18. In that case, you probably
+don’t need this workaround package.

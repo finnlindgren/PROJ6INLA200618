@@ -1,3 +1,12 @@
+check_if_needed <- function() {
+  inla_ver <- as.character(packageVersion("INLA"))
+  if (inla_ver != "20.6.18") {
+    warning(c("The PROJ6INLA200618 workararound is probably not needed for your INLA version, which is"))
+  }
+}
+
+
+
 #' @title Handling CRS/WKT
 #' @description Get and set CRS object or WKT string properties.
 #' @export
@@ -7,7 +16,6 @@
 #' Note that the length unit for the ellipsoid radius is unchanged.
 
 inla.wkt_set_lengthunit <- function(wkt, unit, params = NULL) {
-
   convert <- function(wt, unit) {
     # 1. Recursively find LENGTHUNIT, except within ELLIPSOID
     # 2. Change unit
@@ -39,47 +47,6 @@ inla.wkt_set_lengthunit <- function(wkt, unit, params = NULL) {
   inla.as.wkt.wkt_tree(wt)
 }
 
-#' @return For \code{inla.crs_get_wkt}, WKT2 string.
-#' @export
-#' @rdname crs_wkt
-
-inla.crs_get_wkt <- function(crs) {
-  inla.requires_PROJ6("inla.crs_get_wkt")
-
-  if (inherits(crs, "inla.CRS")) {
-    crs <- crs[["crs"]]
-  }
-
-  if (is.null(crs)) {
-    return(NULL)
-  }
-
-  comment(crs)
-}
-
-#' @return For \code{inla.crs_get_lengthunit}, a
-#' list of length units used in the wkt string, excluding the ellipsoid radius
-#' unit. (For legacy PROJ4 code, the raw units from the proj4string are
-#' returned, if present.)
-#' @export
-#' @rdname crs_wkt
-
-inla.crs_get_lengthunit <- function(crs) {
-  if (inla.has_PROJ6()) {
-    x <- inla.wkt_get_lengthunit(inla.crs_get_wkt(crs))
-  } else {
-    if (inherits(crs, "inla.CRS")) {
-      crs_ <- crs
-      crs <- crs[["crs"]]
-    } else {
-      crs_ <- NULL
-    }
-
-    crs_args <- inla.as.list.CRS(crs)
-    x <- crs_args[["units"]]
-  }
-  x
-}
 
 #' @return For \code{inla.crs_set_lengthunit}, a \code{sp::CRS} object with
 #' altered length units.
@@ -88,6 +55,7 @@ inla.crs_get_lengthunit <- function(crs) {
 #' @rdname crs_wkt
 
 inla.crs_set_lengthunit <- function(crs, unit, params = NULL) {
+  check_if_needed()
   if (inherits(crs, "inla.CRS")) {
     crs_ <- crs
     crs <- crs[["crs"]]
