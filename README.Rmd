@@ -1,0 +1,41 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# PROJ6INLA200618
+
+<!-- badges: start -->
+<!-- badges: end -->
+
+The goal of PROJ6INLA200618 is to provide an easy workaround for a bug affecting
+`INLA::inla.crs_set_lengthunit` in INLA version 20.06.18,
+by overriding the relevant functions with corrected versions.
+
+## Installation
+
+You can install the package from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("remotes")
+remotes::install_github("finnlindgren/PROJ6INLA200618")
+```
+## Example
+
+Use the package like this:
+
+```{r example}
+library(INLA)
+library(PROJ6INLA200618)
+```
+This will display a note about which functions are overridden.
