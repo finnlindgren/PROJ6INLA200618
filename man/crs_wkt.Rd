@@ -9,6 +9,21 @@ inla.wkt_set_lengthunit(wkt, unit, params = NULL)
 
 inla.crs_set_lengthunit(crs, unit, params = NULL)
 }
+\arguments{
+\item{wkt}{A WKT2 character string}
+
+\item{unit}{character, name of a unit. Supported names are
+"metre", "kilometre", and the aliases "meter", "m", International metre",
+"kilometer", and "km", as defined by \code{inla.wkt_unit_params} or the
+\code{params} argument. (For legacy PROJ4 use, only "m" and "km" are
+supported)}
+
+\item{params}{Length unit definitions, in the list format produced by
+\code{inla.wkt_unit_params()}, Default: NULL, which invokes
+\code{inla.wkt_unit_params()}}
+
+\item{crs}{A \code{sp::CRS} or \code{inla.CRS} object}
+}
 \value{
 For \code{inla.wkt_set_lengthunit}, a
 WKT2 string with altered length units.
