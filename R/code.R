@@ -1,7 +1,10 @@
 check_if_needed <- function() {
   inla_ver <- as.character(packageVersion("INLA"))
-  if (inla_ver != "20.6.18") {
-    warning(c("The PROJ6INLA200618 workararound is probably not needed for your INLA version, which is"))
+  if (compareVersion(inla_ver, "20.7.16") >= 0) {
+    warning(paste0(
+      "The PROJ6INLA200618 workararound is probably not needed for your INLA version",
+      "\n",
+      "The problem was fixed on 20.7.16, and your version is ", inla_ver))
   }
 }
 
