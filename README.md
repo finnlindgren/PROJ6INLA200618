@@ -93,5 +93,6 @@ cat(sp::wkt(inla.crs_set_lengthunit(crs, "kilometre")))
 ```
 
 This will display a note about which functions are overridden, and a
-warning if the INLA version isn’t 20.06.18. In that case, you probably
-don’t need this workaround package.
+warning if the INLA version is new enough to already contain the fix
+(after 20.07.16). In that case, you probably don’t need this workaround
+package.
